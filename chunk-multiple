@@ -1,0 +1,21 @@
+#!/bin/bash
+# This loops the chunker script while the RUN file exists.
+# See chunker for details.
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+while [[ -f RUN ]]
+do
+  date
+  "${SCRIPT_DIR}/chunker"
+  result="${?}"
+  if [[ "${result}" -ne 0 ]]
+  then
+    date
+    echo "chunker exited with ${result}"
+    exit "${result}"
+  fi
+
+  echo "Sleeping..."
+  sleep 1
+done
+
