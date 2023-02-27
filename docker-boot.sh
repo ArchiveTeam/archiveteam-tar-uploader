@@ -42,13 +42,6 @@ EOF
                 fi
                 exec /factory/chunk-multiple
         ;;
-        pack|pack-one|packer|pack-multiple)
-                if test -z "${FILE_PREFIX}" || test -z "${ZST_DICTIONARY_API}"; then
-                        echo "Missing param: FILE_PREFIX=${FILE_PREFIX} ZST_DICTIONARY_API=${ZST_DICTIONARY_API}"
-                        exit 1
-                fi
-                exec /factory/pack-multiple
-        ;;
         upload|upload-one|upload-multiple)
                 if test -z "${IA_AUTH}" || test -z "${IA_COLLECTION}" || test -z "${IA_ITEM_TITLE}" || test -z "${IA_ITEM_PREFIX}" || test -z "${FILE_PREFIX}"; then
                         echo "Missing param: IA_AUTH=${IA_AUTH} IA_COLLECTION=${IA_COLLECTION} IA_ITEM_TITLE=${IA_ITEM_TITLE} IA_ITEM_PREFIX=${IA_ITEM_PREFIX} FILE_PREFIX=${FILE_PREFIX}"
@@ -56,15 +49,8 @@ EOF
                 fi
                 exec /factory/upload-multiple
         ;;
-        offload|offload-one|offload-multiple)
-                if test -z "${OFFLOAD_TARGET}" && ! test -f "${PWD}/offload_targets"; then
-                        echo "Missing param: OFFLOAD_TARGET=${OFFLOAD_TARGET} and no ${PWD}/offload_targets existing"
-                        exit 1
-                fi
-                exec /factory/offload-multiple
-        ;;
         *)
-                echo "Usage: chunk|pack|upload|offload"
+                echo "Usage: chunk|upload"
                 exit 1
         ;;
 esac
